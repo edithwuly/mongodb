@@ -20,6 +20,7 @@ import java.util.Collection;
 import java.util.List;
 
 import Entity.Triple;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class MongodbAPI {
@@ -192,8 +193,6 @@ public class MongodbAPI {
 
         FindIterable<Document> triples = relation.find(bson);
 
-        JSONObject res = new JSONObject();
-
         List<String> subjects = new ArrayList<>();
         List<String> objects = new ArrayList<>();
 
@@ -210,6 +209,7 @@ public class MongodbAPI {
             objects.add(triple.getString("object"));
         }
 
+        JSONObject res = new JSONObject();
         res.put("subjects", subjects);
         res.put("objects", objects);
 
@@ -242,10 +242,10 @@ public class MongodbAPI {
         return res;
     }
 
-    public Triple downwardRecursion(String entityName, MongoCollection entity, MongoCollection relation)
+    public JSONObject downwardRecursion(String entityName, MongoCollection entity, MongoCollection relation)
     {
-        Triple res = new Triple();
-        res.name = entityName;
+        JSONObject res = new JSONObject();
+        res.put("name", entityName);
 
         /*MongoClient mongoClient = new MongoClient("localhost",27017);
         MongoDatabase mongoDatabase = mongoClient.getDatabase("test");
@@ -255,57 +255,72 @@ public class MongodbAPI {
 
         Document data = (Document) entity.find(bson).first();
 
-        res.type = data.getString("type");
-        if (res.type.compareTo("嵌套") == 0)
+        String type = data.getString("type");
+        res.put("type", type);
+        if (type.compareTo("嵌套") == 0)
         {
-            Triple temp = findRecursion((ObjectId) data.get("nest"), entity, relation);
-            res.subject = temp.subject;
-            res.predicate = temp.predicate;
-            res.object = temp.object;
+            JSONObject temp = findRecursion((ObjectId) data.get("nest"), entity, relation);
+            res.put("subject", temp.getJSONObject("subject"));
+            res.put("predicate", temp.getString("predicate"));
+            res.put("object", temp.getJSONObject("object"));
         }
 
         //mongoClient.close();;
         return res;
     }
 
-    private Triple findRecursion(ObjectId id, MongoCollection entity, MongoCollection relation)
+    private JSONObject findRecursion(ObjectId id, MongoCollection entity, MongoCollection relation)
     {
-        Triple res = new Triple();
+        JSONObject res = new JSONObject();
         Document data =(Document) relation.find(new BasicDBObject("_id", id)).first();
 
-        res.subject = new Triple();
-        res.object = new Triple();
-        res.subject.name  = data.getString("subject");
-        res.object.name = data.getString("object");
-        res.predicate = data.getString("name");
+        JSONObject subject = new JSONObject();
+        String subjectName = data.getString("subject");
+        String objectName = data.getString("object");
+        String predicate = data.getString("name");
+        System.out.print("subject:" + subjectName);
+        subject.put("name", subjectName);
 
-        data = (Document) entity.find(new BasicDBObject("name", res.subject.name)).first();
 
-        if ((res.subject.type = data.getString("type")).compareTo("嵌套") == 0)
+        data = (Document) entity.find(new BasicDBObject("name", subjectName)).first();
+        String type = data.getString("type");
+        subject.put("type", type);
+
+        if (type.compareTo("嵌套") == 0)
         {
-            Triple temp = findRecursion((ObjectId) data.get("nest"), entity, relation);
-            res.subject.subject = temp.subject;
-            res.subject.predicate = temp.predicate;
-            res.subject.object = temp.object;
+            JSONObject temp = findRecursion((ObjectId) data.get("nest"), entity, relation);
+            System.out.print(temp);
+            subject.put("subject", temp.getJSONObject("subject"));
+            subject.put("predicate", temp.getString("predicate"));
+            subject.put("object", temp.getJSONObject("object"));
         }
 
-        data = (Document) entity.find(new BasicDBObject("name", res.object.name)).first();
+        res.put("subject", subject);
+        res.put("predicate", predicate);
 
-        if ((res.object.type = data.getString("type")).compareTo("嵌套") == 0)
+
+        System.out.print("object:" + objectName);
+        JSONObject object = new JSONObject();
+        object.put("name", objectName);
+        data = (Document) entity.find(new BasicDBObject("name", objectName)).first();
+
+        if ((type = data.getString("type")).compareTo("嵌套") == 0)
         {
-            Triple temp = findRecursion((ObjectId) data.get("nest"), entity, relation);
-            res.object.subject = temp.subject;
-            res.object.predicate = temp.predicate;
-            res.object.object = temp.object;
+            JSONObject temp = findRecursion((ObjectId) data.get("nest"), entity, relation);
+            object.put("subject", temp.getJSONObject("subject"));
+            object.put("predicate", temp.getString("predicate"));
+            object.put("object", temp.getJSONObject("object"));
         }
+
+        res.put("object", object);
 
         //System.out.print("subject:" + res.subject.name + " predicate:" + res.predicate + " object:" + res.object.name + "\n");
         return res;
     }
 
-    public List<String> neighbours(String entityName, MongoCollection relation)
+    public JSONObject neighbours(String entityName,MongoCollection entity, MongoCollection relation)
     {
-        List<String> res = new ArrayList<String>();
+        JSONArray neighbours = new JSONArray();
 
         /*MongoClient mongoClient = new MongoClient("localhost",27017);
         MongoDatabase mongoDatabase = mongoClient.getDatabase("test");
@@ -314,22 +329,30 @@ public class MongodbAPI {
         FindIterable<Document> relations = relation.find(new BasicDBObject("subject",entityName));
         for (Document e : relations)
         {
-            String temp = e.getString("object");
-            if (!res.contains(temp))
-            {
-                res.add(temp);
-            }
+            JSONObject neighbour = new JSONObject();
+            neighbour.put("predicate", e.getString("name"));
+            neighbour.put("predicateID", e.getObjectId("_id"));
+            //System.out.print(e.getString("object"));
+            Document temp = (Document) entity.find(new BasicDBObject("name",e.getString("object"))).first();
+            neighbour.put("type", temp.getString("type"));
+            neighbour.put("name", temp.getString("name"));
+            neighbours.put(neighbour);
         }
 
         relations = relation.find(new BasicDBObject("object",entityName));
         for (Document e : relations)
         {
-            String temp = e.getString("subject");
-            if (!res.contains(temp))
-            {
-                res.add(temp);
-            }
+            JSONObject neighbour = new JSONObject();
+            neighbour.put("predicate", e.getString("name"));
+            neighbour.put("predicateID", e.getObjectId("_id"));
+            Document temp = (Document) entity.find(new BasicDBObject("name",e.getString("subject"))).first();
+            neighbour.put("type", temp.getString("type"));
+            neighbour.put("name", temp.getString("name"));
+            neighbours.put(neighbour);
         }
+
+        JSONObject res = new JSONObject();
+        res.put("neighbours", neighbours);
 
         //mongoClient.close();
         return res;

@@ -2,25 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3426e624-2200-408e-85ca-1307cc4f4f1d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/Mongodb/MongodbAPITest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Mongodb/MongodbAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Mongodb/MongodbAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/data/发热2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data/发热2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/data/发热3.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data/发热3.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/data/发热4.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data/发热4.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/data/发热5.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data/发热5.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/data/发热6.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data/发热6.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/data/发热7.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data/发热7.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/App.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Mongodb/MongodbAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Mongodb/MongodbAPI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data/发热2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data/发热2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data/发热3.csv" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data/发热3.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data/发热4.csv" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data/发热4.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data/发热5.csv" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data/发热5.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data/发热6.csv" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data/发热6.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data/发热7.csv" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data/发热7.csv" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -38,20 +25,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/App.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-13">
-              <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Mongodb/MongodbAPI.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="933">
-              <caret line="345" column="42" lean-forward="true" selection-start-line="345" selection-start-column="42" selection-end-line="345" selection-end-column="42" />
+            <state relative-caret-position="282">
+              <caret line="37" column="86" selection-start-line="37" selection-start-column="27" selection-end-line="37" selection-end-column="86" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -60,9 +35,35 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Mongodb/MongodbAPI.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="118">
+              <caret line="322" column="41" selection-start-line="322" selection-start-column="41" selection-end-line="322" selection-end-column="41" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1033#1359#0" />
+                <element signature="method#resolveTriple#0;class#MongodbAPI#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/java/Mongodb/MongodbAPITest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="154">
+              <caret line="150" column="209" selection-start-line="150" selection-start-column="209" selection-end-line="150" selection-end-column="209" />
+              <folding>
+                <element signature="e#3109#3472#1" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="665">
+            <state relative-caret-position="472">
               <caret line="35" column="16" selection-start-line="35" selection-start-column="16" selection-end-line="35" selection-end-column="16" />
             </state>
           </provider>
@@ -84,6 +85,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="JUnit4 Test Class" />
       </list>
     </option>
   </component>
@@ -96,8 +98,9 @@
         <option value="$PROJECT_DIR$/src/main/java/Triple.java" />
         <option value="$PROJECT_DIR$/src/main/java/Mongodb/MongodbImp.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/App.java" />
         <option value="$PROJECT_DIR$/src/main/java/Mongodb/MongodbAPI.java" />
+        <option value="$PROJECT_DIR$/src/main/java/App.java" />
+        <option value="$PROJECT_DIR$/src/test/java/Mongodb/MongodbAPITest.java" />
       </list>
     </option>
   </component>
@@ -109,9 +112,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="270" />
-    <option name="y" value="27" />
-    <option name="width" value="1278" />
+    <option name="x" value="-12" />
+    <option name="y" value="-12" />
+    <option name="width" value="1944" />
     <option name="height" value="1044" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -120,8 +123,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -145,29 +148,6 @@
               <item name="mongodb" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="mongodb" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mongodb" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="Entity" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="mongodb" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mongodb" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="Mongodb" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="mongodb" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mongodb" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -175,7 +155,8 @@
               <item name="mongodb" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="TestTime" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="mongodb" type="b2602c69:ProjectViewProjectNode" />
@@ -191,6 +172,8 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -206,6 +189,12 @@
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="Mongodb" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\wly\Basic\mongodb\src\main\java" />
       <recent name="D:\wly\Basic\mongodb\src\main\resources" />
@@ -223,7 +212,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.MongodbAPITest.entitiesByType">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="App" />
       <module name="mongodb" />
@@ -231,8 +220,30 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="MongodbAPITest.entitiesByType" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="mongodb" />
+      <option name="PACKAGE_NAME" value="Mongodb" />
+      <option name="MAIN_CLASS_NAME" value="Mongodb.MongodbAPITest" />
+      <option name="METHOD_NAME" value="entitiesByType" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MongodbAPITest.relationsByType" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="mongodb" />
+      <option name="PACKAGE_NAME" value="Mongodb" />
+      <option name="MAIN_CLASS_NAME" value="Mongodb.MongodbAPITest" />
+      <option name="METHOD_NAME" value="relationsByType" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.MongodbAPITest.entitiesByType" />
+        <item itemvalue="JUnit.MongodbAPITest.relationsByType" />
         <item itemvalue="Application.App" />
       </list>
     </recent_temporary>
@@ -255,18 +266,60 @@
       <workItem from="1574732517007" duration="37542000" />
       <workItem from="1575511166108" duration="3781000" />
       <workItem from="1575967537194" duration="4298000" />
-      <workItem from="1576546634842" duration="4351000" />
+      <workItem from="1576546634842" duration="9783000" />
+      <workItem from="1577887105935" duration="358000" />
+      <workItem from="1577935321842" duration="1676000" />
+      <workItem from="1577954596565" duration="3649000" />
+      <workItem from="1583285850361" duration="1263000" />
+      <workItem from="1583287289972" duration="8499000" />
     </task>
+    <task id="LOCAL-00001" summary="提出mongodb接口">
+      <created>1576551143690</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1576551143690</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="MongodbAPITest_relationsByType - 2020.03.04 at 09h 47m 00s.xml">
+      <configuration name="MongodbAPITest.relationsByType" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MongodbAPITest_relationsByType - 2020.03.04 at 10h 05m 56s.xml">
+      <configuration name="MongodbAPITest.relationsByType" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MongodbAPITest_relationsByType - 2020.03.04 at 10h 06m 14s.xml">
+      <configuration name="MongodbAPITest.relationsByType" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MongodbAPITest_relationsByType - 2020.03.04 at 10h 08m 33s.xml">
+      <configuration name="MongodbAPITest.relationsByType" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MongodbAPITest_relationsByType - 2020.03.04 at 10h 15m 13s.xml">
+      <configuration name="MongodbAPITest.relationsByType" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MongodbAPITest_relationsByType - 2020.03.04 at 10h 16m 14s.xml">
+      <configuration name="MongodbAPITest.relationsByType" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MongodbAPITest_relationsByType - 2020.03.04 at 10h 20m 52s.xml">
+      <configuration name="MongodbAPITest.relationsByType" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MongodbAPITest_relationsByType - 2020.03.04 at 10h 35m 48s.xml">
+      <configuration name="MongodbAPITest.relationsByType" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MongodbAPITest_entitiesByType - 2020.03.04 at 16h 06m 05s.xml">
+      <configuration name="MongodbAPITest.entitiesByType" configurationId="JUnit" />
+    </history-entry>
+  </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="89016000" />
+    <option name="totallyTimeSpent" value="109893000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22554567" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24494745" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -274,7 +327,7 @@
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3285968" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.4689165" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39786857" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -283,7 +336,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="10" />
+      <window_info anchor="bottom" id="Version Control" order="10" weight="0.3285968" />
       <window_info anchor="bottom" id="Spring" order="11" />
       <window_info anchor="bottom" id="Messages" order="12" weight="0.32978722" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -330,6 +383,10 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="提出mongodb接口" />
+    <option name="LAST_COMMIT_MESSAGE" value="提出mongodb接口" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/jshell/jshell_console.snippet">
@@ -396,6 +453,7 @@
         <state relative-caret-position="-2684" />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/relationByTypeTest.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/Entity/Triple.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="38">
@@ -405,27 +463,39 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="665">
+        <state relative-caret-position="472">
           <caret line="35" column="16" selection-start-line="35" selection-start-column="16" selection-end-line="35" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Mongodb/MongodbAPI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="322" column="41" selection-start-line="322" selection-start-column="41" selection-end-line="322" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1033#1359#0" />
+            <element signature="method#resolveTriple#0;class#MongodbAPI#0" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/App.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-13">
-          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+        <state relative-caret-position="282">
+          <caret line="37" column="86" selection-start-line="37" selection-start-column="27" selection-end-line="37" selection-end-column="86" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Mongodb/MongodbAPI.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/Mongodb/MongodbAPITest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="933">
-          <caret line="345" column="42" lean-forward="true" selection-start-line="345" selection-start-column="42" selection-end-line="345" selection-end-column="42" />
+        <state relative-caret-position="154">
+          <caret line="150" column="209" selection-start-line="150" selection-start-column="209" selection-end-line="150" selection-end-column="209" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#3109#3472#1" />
           </folding>
         </state>
       </provider>
