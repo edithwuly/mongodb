@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Vector;
 
 import static org.junit.Assert.*;
 
@@ -153,8 +154,8 @@ public class MongodbAPITest {
                 "5de86999d2639e76b1ae7d51", "5de869f1fe5b684f2c1a4de1", "5de8722122d2ac23eba86e27", "5de86ac279712c26f369d7bf", "5de873f713060f0f23468da6", "5de86a6d1dc230659ccc6534", "5de8722122d2ac23eba86e02", "5de86a60f256742dad617ccc", "5de8735d42906745a27037c2", "5def5ce2b8b8ed45fe4f2ea4",
                 "5def5ce2b8b8ed45fe4f2ed8", "5de874b1699b8671bc2a8843", "5def5baf05b96e5213ae5e3f", "5def5c86b87e67490f4e1de1", "5de875d173fc20589ebe5d1c", "5def5d7fc0823e154f1a2841", "5def5d512bc96d64992e30c6", "5de8698b295ec8321d93a027", "5def5b72a003b547e856c89a", "5def5d6bef937670bff7005e",
                 "5de8681cd4db75090b82b44b", "5de873f713060f0f23468d2e", "5de8693c22821011aff2afdc", "5de87382d777be299431861b", "5de86999d2639e76b1ae7c57", "5def5c15d49090289c485572", "5def5c37b360486b684514ae", "5def5d1206d0910090b5c986", "5def5c2cac83070b072ae27a", "5de87458b1e5884c89771a9d",
-                "5def5b71a003b547e856c87d", "5de875d273fc20589ebe5d32", "5de86a8965f9271ccf15a742", "5def5d6bef937670bff70041", "5def5d2ffe19a22cc624e0b5", "5de872181523d646f6daf07e", "5def5d1106d0910090b5c94b", "5def5d81c0823e154f1a28db", "5de86a8965f9271ccf15a846", "5de874629d056376c23c078c",
-                "5de8749e25cef15b44b2ec3c", "5de875bc6caf79286370086f", "5de87365f202392cf5e083a2", "5de873a51d03d6136652be19", "5def5d1106d0910090b5c91f", "5def5d69ef937670bff6ffa1", "5def5ca10ecce26a9c9fe50f", "5def5d9bf3839739990a0080", "5def5d4e2bc96d64992e2fe0", "5def5b7abf45e36c287ec8cb",
+                "5def5b71a003b547e856c87d", "5de875d273fc20589ebe5d32", "5de86a8965f9271ccf15a742", "5def5d6bef937670bff70041", "5def5d2ffe19a22cc624e0b5", "5de872181523d646f6daf07e", "5def5d1106d0910090b5c94b", "5def5d81c0823e154f1a28db", "5de86a8965f9271ccf15a846", "5de8722122d2ac23eba86dfc",
+                "5def5baf05b96e5213ae5e3c", "5de875bc6caf79286370086f", "5de87365f202392cf5e083a2", "5de873a51d03d6136652be19", "5def5d1106d0910090b5c91f", "5def5d69ef937670bff6ffa1", "5def5ca10ecce26a9c9fe50f", "5def5d9bf3839739990a0080", "5def5d4e2bc96d64992e2fe0", "5def5b7abf45e36c287ec8cb",
                 "5de872d71fbdd22882ecfa6b", "5de8745bb1e5884c89771bd1", "5def5d30fe19a22cc624e0ff", "5de869f1fe5b684f2c1a4dbd", "5def5c0ad4a37127428d76bc", "5de87420756fcd5e5aa84e04", "5de874299efa531adefd3c98", "5de872191523d646f6daf0c8", "5de86a8965f9271ccf15a869", "5de8742a9efa531adefd3d03",
                 "5de8742a9efa531adefd3cde", "5def5d2efe19a22cc624e03a", "5de8745bb1e5884c89771bd3", "5de87364f202392cf5e082c6", "5def5d9cf3839739990a00bb", "5def5d1306d0910090b5c9d4", "5de869f1fe5b684f2c1a4d0f", "5de8681bd4db75090b82b40a", "5de87421756fcd5e5aa84e88", "5def5d9ef3839739990a019e"};
 
@@ -171,5 +172,53 @@ public class MongodbAPITest {
         }
 
         mongoClient.close();
+    }
+
+    @Test
+    public void entity2entity() {
+        MongodbAPI mongodb = new MongodbAPI();
+        MongoClient mongoClient = new MongoClient("localhost",27017);
+        MongoDatabase mongoDatabase = mongoClient.getDatabase("smalltest");
+
+        MongoCollection relation = mongoDatabase.getCollection("relation");
+
+        String[] entity1={"嗜睡意识障碍","消瘦体重低于正常低限","链球菌感染急性肾炎","快速度","血压下降脉搏微弱数秒数分钟自然苏醒无后遗症","多糖体成分多核苷酸","负氮平衡消瘦","持续性溢尿","重度休克心律失常Adams‐Stokes综合征", "5‐羟色胺去甲肾上腺素再摄取抑制剂抗抑郁剂",
+                "胆道发育不全","1型糖尿病Ⅳ期","运动不受限","躯体症状","少尿排尿困难","肺栓塞心血管疾病","膀胱癌前列腺癌","急性间质性肾炎间质性肾炎","腰背部","手术出血不止",
+                "胸背部下腹腰部两侧腹股沟下肢","肾病综合征感染高凝微量元素缺乏内分泌紊乱免疫功能低下","短暂意识丧失","肌收缩性头痛头痛型癫痫","慢性支气管炎慢性阻塞性肺气肿支气管哮喘弥漫性泛细支气管炎","皮炎","终末段","过度通气呼吸性碱中毒","面色苍白发绀","先天性视力减退屈光不正眼肌麻痹青光眼",
+                "快慢","不育","支气管胸膜瘘支气管扩张肺脓肿增多痰量","恶性","中毒史","细胞免疫功能低下","失用性骨质疏松高脂血症性关节病","房室传导阻滞","缺乏食欲","高血压血肌酐升高",
+                "血性","脑卒中痴呆骨盆外伤","实质脏器包膜牵张胀痛","IgA肾病新月体性肾炎急性肾衰竭","膜性肾病突发性腰痛肋腹痛血尿肾功能受损肾静脉血栓","单瘫偏瘫","食管纵隔病变胸骨后胸痛","无症状细菌尿无急性尿路感染病史","浅在性","急性肾小管坏死肾小管损害无急性肾炎综合征"};
+        String[] entity2={"吸气期呼气期","增多还原血红蛋白皮肤黏膜青紫色","脑出血脑栓塞脑血栓高血压脑病偏头痛脑血管疾病","继发性肾实质性恶性高血压","放射线","排汗","自主神经功能紊乱心悸胸闷气短皮肤潮红苍白口干便秘腹泻出汗尿意频繁","下肢静脉血栓下腔静脉血栓","多囊肾病","小肠大部分切除术吸收不良综合征小儿乳糜泻热带口炎性腹泻成人乳糜泻消化酶分泌减少肠黏膜吸收面积减少吸收障碍",
+                "神经源性","肿瘤病史","肺循环","心肌顺应性降低心脏舒张受限静脉回流受阻静脉淤血静脉压增高腹水胸水肢体水肿","尿急难以控制尿意","压力性","颅外","航空乘船乘车","血红蛋白","移动感",
+                "近端肾小管损伤肾间质水肿肾实质损伤","黏液性水肿","囊肿出血囊肿感染结石","淋巴分泌过多","忧郁症","无肝囊肿","大出血肾病综合征肝肾综合征","咳嗽胸痛","慢性肠炎慢性痢疾肠结核肿瘤","心动",
+                "抑郁自杀行为自杀观念自伤","旋转感摇晃感","脓痰","空腔脏器","即刻呕吐","晚期慢性肾衰竭重出血胃肠道出血脑出血","结肠癌肠结核肠道恶性淋巴瘤肠套叠","发育性","组织液渗出输液血红蛋白血细胞比容逐渐降低血液稀释","单纯性肾囊肿",
+                "原胆烷醇酮","感觉丧失肢体麻木肢体烧灼感肢体疼痛感肢体深反射迟钝肢体深反射消失神经肌肉兴奋性增加","肌肉紧张运动不安","深棕色","痔疮肛裂","弛张热","超过","脊膜脊神经后根","血清补体降低","肠套叠"};
+
+        for (int i = 0; i<entity1.length;i++) {
+            LocalDateTime start = LocalDateTime.now();
+
+            mongodb.entity2entity(entity1[i], entity2[i], relation);
+
+            LocalDateTime end = LocalDateTime.now();
+
+            String duration = Duration.between(start, end).toString();
+
+            System.out.print(entity1[i] + "->" + entity2[i] + "\t" + duration.substring(2, duration.length()-1) + "\n");
+        }
+
+        mongoClient.close();
+    }
+
+    @Test
+    public void testThread() throws InterruptedException {
+        Vector<Thread> threadVector = new Vector<>();
+        for (int i = 0; i < 100; i++) {
+            threadTest temp = new threadTest();
+            threadVector.add(temp);
+            temp.start();
+        }
+
+        for (Thread e : threadVector){
+            e.join();
+        }
     }
 }

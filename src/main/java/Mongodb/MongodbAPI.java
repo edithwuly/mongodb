@@ -15,9 +15,7 @@ import java.io.FileReader;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 import Entity.Triple;
 import org.json.JSONArray;
@@ -81,6 +79,7 @@ public class MongodbAPI {
                 temp += data.charAt(i);
             }
             res.subject = new Triple();
+            //temp += "6";
             res.subject.name = temp;
             i++;
             temp = "";
@@ -104,6 +103,7 @@ public class MongodbAPI {
         {
             temp += data.charAt(i);
         }
+        //temp += "6";
         res.predicate = temp;
         i++;
 
@@ -136,6 +136,7 @@ public class MongodbAPI {
                 temp += data.charAt(i);
             }
             res.object = new Triple();
+            //temp += "6";
             res.object.name = temp;
             i++;
             temp = "";
@@ -156,7 +157,7 @@ public class MongodbAPI {
         res.name = res.subject.name + res.object.name;
         res.type = "嵌套";
 
-        //System.out.println("三元组:" + res.subject.name + ' ' + res.predicate + ' ' + res.object.name);
+        System.out.println("三元组:" + res.subject.name + ' ' + res.predicate + ' ' + res.object.name);
 
         Document predicate;
         ObjectId id;
@@ -189,9 +190,13 @@ public class MongodbAPI {
         /*MongoClient mongoClient = new MongoClient("localhost",27017);
         MongoDatabase mongoDatabase = mongoClient.getDatabase("test");
         Relation = mongoDatabase.getCollection("relation");*/
+        LocalDateTime start1 = LocalDateTime.now();
+
         BasicDBObject bson = new BasicDBObject("name", predicate);
 
         FindIterable<Document> triples = relation.find(bson);
+
+        LocalDateTime start2 = LocalDateTime.now();
 
         List<String> subjects = new ArrayList<>();
         List<String> objects = new ArrayList<>();
@@ -213,6 +218,11 @@ public class MongodbAPI {
         res.put("subjects", subjects);
         res.put("objects", objects);
 
+        LocalDateTime end = LocalDateTime.now();
+
+        //System.out.print("\nformat time:" + Duration.between(start2,end));
+        //System.out.print("\ntotal time:" + Duration.between(start1,end));
+
         //mongoClient.close();
         return res;
     }
@@ -224,9 +234,13 @@ public class MongodbAPI {
         /*MongoClient mongoClient = new MongoClient("localhost",27017);
         MongoDatabase mongoDatabase = mongoClient.getDatabase("test");
         entity = mongoDatabase.getCollection("entity");*/
+        //LocalDateTime start1 = LocalDateTime.now();
+
         BasicDBObject bson = new BasicDBObject("type", type);
 
         FindIterable<Document> data = entity.find(bson);
+
+        //LocalDateTime start2 = LocalDateTime.now();
 
         JSONObject res = new JSONObject();
         List<String> entities = new ArrayList<>();
@@ -238,19 +252,25 @@ public class MongodbAPI {
 
         res.put("entities", entities);
 
+        /*LocalDateTime end = LocalDateTime.now();
+
+        System.out.print("\nformat time:" + Duration.between(start2,end));
+        System.out.print("\ntotal time:" + Duration.between(start1,end));*/
+
         //mongoClient.close();
         return res;
     }
 
     public JSONObject downwardRecursion(String entityName, MongoCollection entity, MongoCollection relation)
     {
-        JSONObject res = new JSONObject();
-        res.put("name", entityName);
-
         /*MongoClient mongoClient = new MongoClient("localhost",27017);
         MongoDatabase mongoDatabase = mongoClient.getDatabase("test");
         entity = mongoDatabase.getCollection("entity");
         relation = mongoDatabase.getCollection("relation");*/
+
+        JSONObject res = new JSONObject();
+        res.put("name", entityName);
+
         BasicDBObject bson = new BasicDBObject("name", entityName);
 
         Document data = (Document) entity.find(bson).first();
@@ -278,7 +298,7 @@ public class MongodbAPI {
         String subjectName = data.getString("subject");
         String objectName = data.getString("object");
         String predicate = data.getString("name");
-        System.out.print("subject:" + subjectName);
+        //System.out.print("subject:" + subjectName);
         subject.put("name", subjectName);
 
 
@@ -289,7 +309,7 @@ public class MongodbAPI {
         if (type.compareTo("嵌套") == 0)
         {
             JSONObject temp = findRecursion((ObjectId) data.get("nest"), entity, relation);
-            System.out.print(temp);
+            //System.out.print(temp);
             subject.put("subject", temp.getJSONObject("subject"));
             subject.put("predicate", temp.getString("predicate"));
             subject.put("object", temp.getJSONObject("object"));
@@ -299,12 +319,15 @@ public class MongodbAPI {
         res.put("predicate", predicate);
 
 
-        System.out.print("object:" + objectName);
+        //System.out.print("object:" + objectName);
         JSONObject object = new JSONObject();
         object.put("name", objectName);
         data = (Document) entity.find(new BasicDBObject("name", objectName)).first();
 
-        if ((type = data.getString("type")).compareTo("嵌套") == 0)
+        type =  data.getString("type");
+        object.put("type",type);
+
+        if (type.compareTo("嵌套") == 0)
         {
             JSONObject temp = findRecursion((ObjectId) data.get("nest"), entity, relation);
             object.put("subject", temp.getJSONObject("subject"));
@@ -320,6 +343,8 @@ public class MongodbAPI {
 
     public JSONObject neighbours(String entityName,MongoCollection entity, MongoCollection relation)
     {
+        //LocalDateTime start1 = LocalDateTime.now();
+
         JSONArray neighbours = new JSONArray();
 
         /*MongoClient mongoClient = new MongoClient("localhost",27017);
@@ -327,6 +352,8 @@ public class MongodbAPI {
         Relation = mongoDatabase.getCollection("relation");*/
 
         FindIterable<Document> relations = relation.find(new BasicDBObject("subject",entityName));
+
+        //LocalDateTime start2 = LocalDateTime.now();
         for (Document e : relations)
         {
             JSONObject neighbour = new JSONObject();
@@ -339,7 +366,12 @@ public class MongodbAPI {
             neighbours.put(neighbour);
         }
 
+        //LocalDateTime end2 = LocalDateTime.now();
+
         relations = relation.find(new BasicDBObject("object",entityName));
+
+        //LocalDateTime start3 = LocalDateTime.now();
+
         for (Document e : relations)
         {
             JSONObject neighbour = new JSONObject();
@@ -354,6 +386,11 @@ public class MongodbAPI {
         JSONObject res = new JSONObject();
         res.put("neighbours", neighbours);
 
+        /*LocalDateTime end1 = LocalDateTime.now();
+
+        System.out.print("\nformat time:" + Duration.between(start2, end2) + ", " + Duration.between(start3, end1));
+        System.out.print("\ntotal time:" + Duration.between(start1, end1));*/
+
         //mongoClient.close();
         return res;
     }
@@ -363,13 +400,65 @@ public class MongodbAPI {
         /*MongoClient mongoClient = new MongoClient("localhost",27017);
         MongoDatabase mongoDatabase = mongoClient.getDatabase("test");
         entity = mongoDatabase.getCollection("entity");*/
+        LocalDateTime start1 = LocalDateTime.now();
 
         Document data = (Document) entity.find(new BasicDBObject("nest", new ObjectId(id))).first();
 
+        LocalDateTime start2 = LocalDateTime.now();
+
         JSONObject res = new JSONObject();
-        res.put("entity", data.getString("name"));
+
+        if (data == null)
+            res.put("entity", "");
+        else
+            res.put("entity", data.getString("name"));
+
+        LocalDateTime end = LocalDateTime.now();
+
+        System.out.print("\nformat time:" + Duration.between(start2,end));
+        System.out.print("\ntotal time:" + Duration.between(start1,end));
 
         //mongoClient.close();
         return res;
     }
+
+    public JSONObject entity2entity(String entity1, String entity2, MongoCollection relation)
+    {
+        JSONObject res = new JSONObject();
+
+        Queue<Stack<String>> way = new LinkedList<>();
+
+        Stack<String> token = new Stack<>();
+        token.push(entity1);
+        way.offer(token);
+
+        while (!way.isEmpty()) {
+            token = way.poll();
+            String first = token.pop();
+            FindIterable<Document> relations = relation.find(new BasicDBObject("subject", first));
+            for (Document e : relations) {
+                String predicate = e.getString("name");
+                String next = e.getString("object");
+                if (next.equals(entity2)){
+                    token.push(first);
+                    token.push(predicate);
+                    token.push(next);
+                    res.put("way", token);
+                    break;
+                }
+                if (token.search(next) == 0) {
+                    Stack<String> temp = (Stack<String>) token.clone();
+                    temp.push(first);
+                    temp.push(predicate);
+                    temp.push(next);
+                    way.offer(temp);
+                }
+            }
+        }
+        if (res.isEmpty()){
+            res.put("way", "");
+        }
+        return res;
+    }
+
 }
