@@ -1,11 +1,9 @@
 package Mongodb;
 
 import com.mongodb.BasicDBObject;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
+import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -13,7 +11,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.time.Duration;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -79,7 +76,7 @@ public class MongodbAPI {
                 temp += data.charAt(i);
             }
             res.subject = new Triple();
-            //temp += "6";
+            temp += "4";
             res.subject.name = temp;
             i++;
             temp = "";
@@ -103,7 +100,6 @@ public class MongodbAPI {
         {
             temp += data.charAt(i);
         }
-        //temp += "6";
         res.predicate = temp;
         i++;
 
@@ -136,7 +132,7 @@ public class MongodbAPI {
                 temp += data.charAt(i);
             }
             res.object = new Triple();
-            //temp += "6";
+            temp += "4";
             res.object.name = temp;
             i++;
             temp = "";
@@ -157,7 +153,7 @@ public class MongodbAPI {
         res.name = res.subject.name + res.object.name;
         res.type = "嵌套";
 
-        System.out.println("三元组:" + res.subject.name + ' ' + res.predicate + ' ' + res.object.name);
+        //System.out.println("三元组:" + res.subject.name + ' ' + res.predicate + ' ' + res.object.name);
 
         Document predicate;
         ObjectId id;
@@ -169,6 +165,10 @@ public class MongodbAPI {
         else
         {
             predicate = new Document("name", res.predicate).append("subject", res.subject.name).append("object", res.object.name);
+            relation.insertOne(predicate);
+            predicate = new Document("name", "主语").append("subject", res.name).append("object", res.subject.name);
+            relation.insertOne(predicate);
+            predicate = new Document("name", "宾语").append("subject", res.name).append("object", res.object.name);
             relation.insertOne(predicate);
             id = ((Document)relation.find(bson).first()).getObjectId("_id");
         }
@@ -185,7 +185,6 @@ public class MongodbAPI {
 
     public JSONObject relationsByType(String predicate, MongoCollection relation)
     {
-        //List<Triple> res = new ArrayList<>();
 
         /*MongoClient mongoClient = new MongoClient("localhost",27017);
         MongoDatabase mongoDatabase = mongoClient.getDatabase("test");
@@ -234,13 +233,13 @@ public class MongodbAPI {
         /*MongoClient mongoClient = new MongoClient("localhost",27017);
         MongoDatabase mongoDatabase = mongoClient.getDatabase("test");
         entity = mongoDatabase.getCollection("entity");*/
-        //LocalDateTime start1 = LocalDateTime.now();
+        LocalDateTime start1 = LocalDateTime.now();
 
         BasicDBObject bson = new BasicDBObject("type", type);
 
         FindIterable<Document> data = entity.find(bson);
 
-        //LocalDateTime start2 = LocalDateTime.now();
+        LocalDateTime start2 = LocalDateTime.now();
 
         JSONObject res = new JSONObject();
         List<String> entities = new ArrayList<>();
@@ -252,10 +251,10 @@ public class MongodbAPI {
 
         res.put("entities", entities);
 
-        /*LocalDateTime end = LocalDateTime.now();
+        LocalDateTime end = LocalDateTime.now();
 
-        System.out.print("\nformat time:" + Duration.between(start2,end));
-        System.out.print("\ntotal time:" + Duration.between(start1,end));*/
+        //System.out.print("\nformat time:" + Duration.between(start2,end));
+        //System.out.print("\ntotal time:" + Duration.between(start1,end));
 
         //mongoClient.close();
         return res;
@@ -343,7 +342,7 @@ public class MongodbAPI {
 
     public JSONObject neighbours(String entityName,MongoCollection entity, MongoCollection relation)
     {
-        //LocalDateTime start1 = LocalDateTime.now();
+        LocalDateTime start1 = LocalDateTime.now();
 
         JSONArray neighbours = new JSONArray();
 
@@ -353,7 +352,7 @@ public class MongodbAPI {
 
         FindIterable<Document> relations = relation.find(new BasicDBObject("subject",entityName));
 
-        //LocalDateTime start2 = LocalDateTime.now();
+        LocalDateTime start2 = LocalDateTime.now();
         for (Document e : relations)
         {
             JSONObject neighbour = new JSONObject();
@@ -366,11 +365,11 @@ public class MongodbAPI {
             neighbours.put(neighbour);
         }
 
-        //LocalDateTime end2 = LocalDateTime.now();
+        LocalDateTime end2 = LocalDateTime.now();
 
         relations = relation.find(new BasicDBObject("object",entityName));
 
-        //LocalDateTime start3 = LocalDateTime.now();
+        LocalDateTime start3 = LocalDateTime.now();
 
         for (Document e : relations)
         {
@@ -386,10 +385,10 @@ public class MongodbAPI {
         JSONObject res = new JSONObject();
         res.put("neighbours", neighbours);
 
-        /*LocalDateTime end1 = LocalDateTime.now();
+        LocalDateTime end1 = LocalDateTime.now();
 
-        System.out.print("\nformat time:" + Duration.between(start2, end2) + ", " + Duration.between(start3, end1));
-        System.out.print("\ntotal time:" + Duration.between(start1, end1));*/
+        //System.out.print("\nformat time:" + Duration.between(start2, end2) + ", " + Duration.between(start3, end1));
+        //System.out.print("\ntotal time:" + Duration.between(start1, end1));
 
         //mongoClient.close();
         return res;
@@ -415,14 +414,14 @@ public class MongodbAPI {
 
         LocalDateTime end = LocalDateTime.now();
 
-        System.out.print("\nformat time:" + Duration.between(start2,end));
-        System.out.print("\ntotal time:" + Duration.between(start1,end));
+        //System.out.print("\nformat time:" + Duration.between(start2,end));
+        //System.out.print("\ntotal time:" + Duration.between(start1,end));
 
         //mongoClient.close();
         return res;
     }
 
-    public JSONObject entity2entity(String entity1, String entity2, MongoCollection relation)
+    public JSONObject entity2entity(String entity1, String entity2, int wide, MongoCollection relation)
     {
         JSONObject res = new JSONObject();
 
@@ -432,7 +431,7 @@ public class MongodbAPI {
         token.push(entity1);
         way.offer(token);
 
-        while (!way.isEmpty()) {
+        while (!way.isEmpty() && token.size() <= wide * 2) {
             token = way.poll();
             String first = token.pop();
             FindIterable<Document> relations = relation.find(new BasicDBObject("subject", first));
@@ -444,9 +443,9 @@ public class MongodbAPI {
                     token.push(predicate);
                     token.push(next);
                     res.put("way", token);
-                    break;
+                    return res;
                 }
-                if (token.search(next) == 0) {
+                if (token.search(next) == -1) {
                     Stack<String> temp = (Stack<String>) token.clone();
                     temp.push(first);
                     temp.push(predicate);
@@ -455,10 +454,19 @@ public class MongodbAPI {
                 }
             }
         }
-        if (res.isEmpty()){
-            res.put("way", "");
-        }
+
+        res.put("way", "");
         return res;
     }
 
+    public void getSample(MongoCollection entity, MongoCollection relation) {
+
+        List<BasicDBObject> bsons = new ArrayList<>();
+        bsons.add(new BasicDBObject("$sample", new BasicDBObject("size", 100)));
+
+        AggregateIterable<Document> result = relation.aggregate(bsons);
+        for (Document e : result) {
+            System.out.print("\"" + e.getObjectId("_id") + "\", ");
+        }
+    }
 }

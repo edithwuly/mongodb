@@ -1,8 +1,11 @@
 import Entity.Triple;
 import Mongodb.MongodbAPI;
+import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
+import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
 import org.json.JSONObject;
 
 import java.io.*;
@@ -20,8 +23,8 @@ public class App {
         MongoCollection entity = mongoDatabase.getCollection("entity");
         MongoCollection relation = mongoDatabase.getCollection("relation");
 
-        /*LocalDateTime start = LocalDateTime.now();
-        mongodb.insert("src/main/resources/data/5-1--总　 　论.csv", entity, relation);
+        //LocalDateTime start = LocalDateTime.now();
+        /*mongodb.insert("src/main/resources/data/5-1--总　 　论.csv", entity, relation);
         mongodb.insert("src/main/resources/data/5-2--肾小球疾病概述.csv", entity, relation);
         mongodb.insert("src/main/resources/data/5-3-1-急性肾小球肾炎.csv", entity, relation);
         mongodb.insert("src/main/resources/data/5-3-2-急进性肾小球肾炎.csv", entity, relation);
@@ -188,6 +191,7 @@ public class App {
         mongodb.insert("src/main/resources/data/晕厥3.csv", entity, relation);
         mongodb.insert("src/main/resources/data/晕厥4.csv", entity, relation);*/
 
+        //mongodb.getSample(entity,relation);
 
         //JSONObject test = mongodb.relationsByType("导致", relation);
         //System.out.print(test);
@@ -201,16 +205,17 @@ public class App {
         //System.out.print(mongodb.downwardRecursion("月经前妊娠期体温高于正常", entity, relation));
 
 
-        //System.out.print(mongodb.upwardRecursion("5e917551fa85f33fd86f851b", entity));
-
-
         //System.out.print(mongodb.neighbours("体温", entity, relation));
+
+
+        //System.out.print(mongodb.upwardRecursion("5ebe4c9db0782168776d1991", entity));
+
 
         //LocalDateTime end = LocalDateTime.now();
 
         //System.out.print("\nduration:" + Duration.between(start,end));
 
-        System.out.print(mongodb.entity2entity("系统性红斑狼疮","肾损害", relation));
+        //System.out.print(mongodb.entity2entity("中毒史","即刻呕吐", 5, relation));
 
         mongoClient.close();
     }

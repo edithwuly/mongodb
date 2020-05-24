@@ -10,7 +10,6 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Vector;
 
-import static org.junit.Assert.*;
 
 public class MongodbAPITest {
 
@@ -18,13 +17,13 @@ public class MongodbAPITest {
     public void relationsByType() {
         MongodbAPI mongodb = new MongodbAPI();
         MongoClient mongoClient = new MongoClient("localhost",27017);
-        MongoDatabase mongoDatabase = mongoClient.getDatabase("test");
+        MongoDatabase mongoDatabase = mongoClient.getDatabase("bigtest");
 
         MongoCollection entity = mongoDatabase.getCollection("entity");
         MongoCollection relation = mongoDatabase.getCollection("relation");
 
         String[] type = {"导致", "或", "是一种", "条件为", "与", "并发症", "调查病史", "否定修饰", "然后", "同义词",
-                "修饰限定", "强导致", "表现为", "弱导致", "作用于", "等价", "定义为", "执行检查", "检查发现", "转变为", "比例为"};
+                "修饰限定", "强导致", "表现为", "弱导致", "作用于", "等价", "定义为", "执行检查", "检查发现", "转变为", "比例为", "主语", "宾语"};
 
         for (int i = 0; i<type.length;i++) {
             LocalDateTime start = LocalDateTime.now();
@@ -45,7 +44,7 @@ public class MongodbAPITest {
     public void entitiesByType() {
         MongodbAPI mongodb = new MongodbAPI();
         MongoClient mongoClient = new MongoClient("localhost",27017);
-        MongoDatabase mongoDatabase = mongoClient.getDatabase("test");
+        MongoDatabase mongoDatabase = mongoClient.getDatabase("bigtest");
 
         MongoCollection entity = mongoDatabase.getCollection("entity");
         MongoCollection relation = mongoDatabase.getCollection("relation");
@@ -73,7 +72,7 @@ public class MongodbAPITest {
     public void downwardRecursion() {
         MongodbAPI mongodb = new MongodbAPI();
         MongoClient mongoClient = new MongoClient("localhost",27017);
-        MongoDatabase mongoDatabase = mongoClient.getDatabase("test");
+        MongoDatabase mongoDatabase = mongoClient.getDatabase("bigtest");
 
         MongoCollection entity = mongoDatabase.getCollection("entity");
         MongoCollection relation = mongoDatabase.getCollection("relation");
@@ -108,7 +107,7 @@ public class MongodbAPITest {
     public void neighbours() {
         MongodbAPI mongodb = new MongodbAPI();
         MongoClient mongoClient = new MongoClient("localhost",27017);
-        MongoDatabase mongoDatabase = mongoClient.getDatabase("test");
+        MongoDatabase mongoDatabase = mongoClient.getDatabase("bigtest");
 
         MongoCollection entity = mongoDatabase.getCollection("entity");
         MongoCollection relation = mongoDatabase.getCollection("relation");
@@ -143,21 +142,36 @@ public class MongodbAPITest {
     public void upwardRecursion() {
         MongodbAPI mongodb = new MongodbAPI();
         MongoClient mongoClient = new MongoClient("localhost",27017);
-        MongoDatabase mongoDatabase = mongoClient.getDatabase("test");
+        MongoDatabase mongoDatabase = mongoClient.getDatabase("bigtest");
 
         MongoCollection entity = mongoDatabase.getCollection("entity");
         MongoCollection relation = mongoDatabase.getCollection("relation");
 
-        String[] id = {"5def5cb10258310011102276", "5de8729e92492357db04116f", "5de86a6d1dc230659ccc64d7", "5de8747f95b2586ad55528f2", "5def5d1106d0910090b5c8f3", "5de874f0c21eb9354b798ca3", "5de875bd6caf7928637008c4", "5de874fa1468df53c2003dd2", "5def5c57813df177b5c7ef0d", "5def5b9543f14a57484fb766",
-                "5def5c13d49090289c4854bf", "5de875d273fc20589ebe5d29", "5def5bb8a72d792da3a6deed", "5de86a7a457c76666b9bbba2", "5def5bdae8211b4c755b6437", "5def5b71a003b547e856c86b", "5def5bdbe8211b4c755b6475", "5def5b7bbf45e36c287ec928", "5de869f2fe5b684f2c1a4e5e", "5def5c02ae0a7306bae55fd9",
-                "5de86ab92337cb53f33ba6ef", "5de8696928e2a02a903c9475", "5de87458b1e5884c89771adb", "5de86a5ff256742dad617c3d", "5def5c24c8e04e16693a3c05", "5def5d4b2bc96d64992e2ecb", "5de86a8765f9271ccf15a588", "5de8698a295ec8321d93a00f", "5def5d6aef937670bff6fff1", "5de872a96b4be91ec3b8a716",
-                "5de86999d2639e76b1ae7d51", "5de869f1fe5b684f2c1a4de1", "5de8722122d2ac23eba86e27", "5de86ac279712c26f369d7bf", "5de873f713060f0f23468da6", "5de86a6d1dc230659ccc6534", "5de8722122d2ac23eba86e02", "5de86a60f256742dad617ccc", "5de8735d42906745a27037c2", "5def5ce2b8b8ed45fe4f2ea4",
-                "5def5ce2b8b8ed45fe4f2ed8", "5de874b1699b8671bc2a8843", "5def5baf05b96e5213ae5e3f", "5def5c86b87e67490f4e1de1", "5de875d173fc20589ebe5d1c", "5def5d7fc0823e154f1a2841", "5def5d512bc96d64992e30c6", "5de8698b295ec8321d93a027", "5def5b72a003b547e856c89a", "5def5d6bef937670bff7005e",
-                "5de8681cd4db75090b82b44b", "5de873f713060f0f23468d2e", "5de8693c22821011aff2afdc", "5de87382d777be299431861b", "5de86999d2639e76b1ae7c57", "5def5c15d49090289c485572", "5def5c37b360486b684514ae", "5def5d1206d0910090b5c986", "5def5c2cac83070b072ae27a", "5de87458b1e5884c89771a9d",
-                "5def5b71a003b547e856c87d", "5de875d273fc20589ebe5d32", "5de86a8965f9271ccf15a742", "5def5d6bef937670bff70041", "5def5d2ffe19a22cc624e0b5", "5de872181523d646f6daf07e", "5def5d1106d0910090b5c94b", "5def5d81c0823e154f1a28db", "5de86a8965f9271ccf15a846", "5de8722122d2ac23eba86dfc",
-                "5def5baf05b96e5213ae5e3c", "5de875bc6caf79286370086f", "5de87365f202392cf5e083a2", "5de873a51d03d6136652be19", "5def5d1106d0910090b5c91f", "5def5d69ef937670bff6ffa1", "5def5ca10ecce26a9c9fe50f", "5def5d9bf3839739990a0080", "5def5d4e2bc96d64992e2fe0", "5def5b7abf45e36c287ec8cb",
-                "5de872d71fbdd22882ecfa6b", "5de8745bb1e5884c89771bd1", "5def5d30fe19a22cc624e0ff", "5de869f1fe5b684f2c1a4dbd", "5def5c0ad4a37127428d76bc", "5de87420756fcd5e5aa84e04", "5de874299efa531adefd3c98", "5de872191523d646f6daf0c8", "5de86a8965f9271ccf15a869", "5de8742a9efa531adefd3d03",
-                "5de8742a9efa531adefd3cde", "5def5d2efe19a22cc624e03a", "5de8745bb1e5884c89771bd3", "5de87364f202392cf5e082c6", "5def5d9cf3839739990a00bb", "5def5d1306d0910090b5c9d4", "5de869f1fe5b684f2c1a4d0f", "5de8681bd4db75090b82b40a", "5de87421756fcd5e5aa84e88", "5def5d9ef3839739990a019e"};
+        //small
+        /*String[] id = {"5ebe4d41b0782168776d9894", "5ebe4df0b0782168776dd7e4", "5ebe4d15b0782168776d8531", "5ebe4d15b0782168776d856d", "5ebe4cc8b0782168776d59e4", "5ebe4ca7b0782168776d32b2", "5ebe4cc1b0782168776d53cf", "5ebe4dcbb0782168776dcbd4", "5ebe4d5cb0782168776da3e2", "5ebe4d2fb0782168776d90f5",
+                "5ebe4de0b0782168776dd2e7", "5ebe4ca4b0782168776d2e9d", "5ebe4cd6b0782168776d62dd", "5ebe4dc7b0782168776dca79", "5ebe4ca9b0782168776d3727", "5ebe4d25b0782168776d8c56", "5ebe4dc8b0782168776dcae4", "5ebe4d03b0782168776d7c3a", "5ebe4dcab0782168776dcb8d", "5ebe4ce8b0782168776d6dd1",
+                "5ebe4cc4b0782168776d56ba", "5ebe4dc8b0782168776dcaae", "5ebe4cf8b0782168776d76b5", "5ebe4cd7b0782168776d6379", "5ebe4ca4b0782168776d2cd1", "5ebe4ca1b0782168776d26c8", "5ebe4cb2b0782168776d452a", "5ebe4d7bb0782168776dafee", "5ebe4d9ab0782168776dbb27", "5ebe4d5cb0782168776da3e0",
+                "5ebe4d79b0782168776daf41", "5ebe4d4bb0782168776d9c9e", "5ebe4db1b0782168776dc33e", "5ebe4dd6b0782168776dcf71", "5ebe4cb7b0782168776d4a61", "5ebe4cccb0782168776d5b84", "5ebe4ca1b0782168776d278f", "5ebe4d16b0782168776d85a1", "5ebe4cb9b0782168776d4bbb", "5ebe4ce3b0782168776d6b2d",
+                "5ebe4db0b0782168776dc2ba", "5ebe4d30b0782168776d9137", "5ebe4d5ab0782168776da334", "5ebe4ddeb0782168776dd244", "5ebe4cb7b0782168776d4a7d", "5ebe4c9db0782168776d1b8a", "5ebe4ca4b0782168776d2d9e", "5ebe4d42b0782168776d9901", "5ebe4cd5b0782168776d622a", "5ebe4cfdb0782168776d7962",
+                "5ebe4ca3b0782168776d2c68", "5ebe4cc5b0782168776d5723", "5ebe4d87b0782168776db46d", "5ebe4d4eb0782168776d9dc0", "5ebe4ca0b0782168776d2336", "5ebe4ca0b0782168776d23ea", "5ebe4d54b0782168776da07d", "5ebe4ca3b0782168776d2c5f", "5ebe4cb8b0782168776d4aac", "5ebe4ceeb0782168776d7199",
+                "5ebe4ccfb0782168776d5e5b", "5ebe4cdeb0782168776d67c5", "5ebe4cb6b0782168776d4859", "5ebe4d5cb0782168776da401", "5ebe4cfcb0782168776d78e6", "5ebe4d48b0782168776d9b3c", "5ebe4cadb0782168776d3e48", "5ebe4ce9b0782168776d6e99", "5ebe4ce1b0782168776d69e7", "5ebe4cfeb0782168776d79a4",
+                "5ebe4ce4b0782168776d6b3a", "5ebe4ca7b0782168776d32ff", "5ebe4d25b0782168776d8c6c", "5ebe4d22b0782168776d8b4d", "5ebe4d49b0782168776d9be3", "5ebe4ce8b0782168776d6dc0", "5ebe4cb8b0782168776d4ad5", "5ebe4d54b0782168776da08d", "5ebe4ca3b0782168776d2b3a", "5ebe4d3db0782168776d96fb",
+                "5ebe4ca3b0782168776d2acc", "5ebe4c9eb0782168776d1d26", "5ebe4cc2b0782168776d552f", "5ebe4d87b0782168776db48f", "5ebe4dc4b0782168776dc985", "5ebe4d97b0782168776dba3b", "5ebe4cadb0782168776d3d85", "5ebe4d10b0782168776d825e", "5ebe4cd4b0782168776d6188", "5ebe4cb0b0782168776d418c",
+                "5ebe4d87b0782168776db487", "5ebe4d39b0782168776d9568", "5ebe4caab0782168776d398c", "5ebe4d68b0782168776da8cc", "5ebe4caeb0782168776d3fbb", "5ebe4caeb0782168776d3f0f", "5ebe4d2cb0782168776d8fdf", "5ebe4de9b0782168776dd5ac", "5ebe4cb1b0782168776d42c1", "5ebe4d47b0782168776d9af2"};
+         */
+
+        //big
+        String[] id = {"5ebe84a51ba93e08efa50a30", "5ebe82921ba93e08efa4a881", "5ebe8586f937a9096dcd1c1b", "5ebe82491ba93e08efa48b9f", "5ebe851df937a9096dccffe2", "5ebe8585f937a9096dcd1bf7", "5ebe82781ba93e08efa49baf", "5ebe84a71ba93e08efa50b40", "5ebe82721ba93e08efa499a4", "5ebe84231ba93e08efa4f3f7",
+                "5ebe82431ba93e08efa48853", "5ebe839b1ba93e08efa4e05a", "5ebe82df1ba93e08efa4bf79", "5ebe82441ba93e08efa488a0", "5ebe82581ba93e08efa491b5", "5ebe850ef937a9096dccfb95", "5ebe851ff937a9096dcd0083", "5ebe83a21ba93e08efa4e161", "5ebe857ff937a9096dcd1a7f", "5ebe822c1ba93e08efa47d65",
+                "5ebe82141ba93e08efa463bc", "5ebe82951ba93e08efa4aa3e", "5ebe843d1ba93e08efa4f7bd", "5ebe862cf937a9096dcd4118", "5ebe891ce8d7790b3e91cf34", "5ebe86f9f937a9096dcd6a49", "5ebe8903e8d7790b3e91cb56", "5ebe820f1ba93e08efa45994", "5ebe8b04e8d7790b3e92124d", "5ebe82781ba93e08efa49bbf",
+                "5ebe821f1ba93e08efa472b4", "5ebe8602f937a9096dcd3931", "5ebe86b8f937a9096dcd5dfd", "5ebe86e5f937a9096dcd6678", "5ebe82541ba93e08efa4907f", "5ebe82111ba93e08efa45d82", "5ebe8b4be8d7790b3e921b13", "5ebe8874f937a9096dcdab04", "5ebe82311ba93e08efa47ffb", "5ebe82601ba93e08efa49483",
+                "5ebe85e3f937a9096dcd3239", "5ebe853ff937a9096dcd0983", "5ebe82881ba93e08efa4a397", "5ebe8b69e8d7790b3e921ee0", "5ebe82f81ba93e08efa4c484", "5ebe8695f937a9096dcd56c6", "5ebe858af937a9096dcd1d60", "5ebe84eef937a9096dccf286", "5ebe878cf937a9096dcd847c", "5ebe82e31ba93e08efa4c02c",
+                "5ebe82281ba93e08efa47a44", "5ebe8544f937a9096dcd0af9", "5ebe82891ba93e08efa4a3f7", "5ebe8b47e8d7790b3e921a7e", "5ec1f1c0e013c411903b14f4", "5ebe8901e8d7790b3e91cb03", "5ebe8b2de8d7790b3e92176e", "5ebe880df937a9096dcd9a1d", "5ebe8506f937a9096dccf968", "5ebe84971ba93e08efa50575",
+                "5ebe82321ba93e08efa48098", "5ebe82f81ba93e08efa4c463", "5ebe886ef937a9096dcdaa16", "5ebe8768f937a9096dcd7e9e", "5ebe83c01ba93e08efa4e603", "5ebe855ff937a9096dcd126b", "5ebe8b4de8d7790b3e921b4f", "5ebe8b2ae8d7790b3e9216f9", "5ebe8b47e8d7790b3e921a78", "5ebe84b21ba93e08efa50efd",
+                "5ebe82421ba93e08efa487ed", "5ebe8817f937a9096dcd9bbf", "5ebe86e5f937a9096dcd6666", "5ebe85d2f937a9096dcd2e4d", "5ebe8920e8d7790b3e91cfd5", "5ebe875ef937a9096dcd7cb9", "5ebe8aa5e8d7790b3e92071e", "5ebe88d4e8d7790b3e91c428", "5ebe86dbf937a9096dcd6499", "5ebe8522f937a9096dcd017e",
+                "5ebe86c9f937a9096dcd6128", "5ebe88f4e8d7790b3e91c921", "5ebe83141ba93e08efa4c9a4", "5ebe821b1ba93e08efa46e4c", "5ebe82f31ba93e08efa4c3ad", "5ebe82231ba93e08efa47656", "5ebe877af937a9096dcd81ca", "5ebe8acae8d7790b3e920b94", "5ebe882cf937a9096dcd9ee7", "5ebe893ce8d7790b3e91d458",
+                "5ebe82e51ba93e08efa4c0b9", "5ebe84681ba93e08efa4fd50", "5ebe8634f937a9096dcd42f5", "5ebe83ee1ba93e08efa4ec40", "5ebe83381ba93e08efa4cf92", "5ebe82161ba93e08efa4665a", "5ebe83741ba93e08efa4d9c1", "5ebe8507f937a9096dccf9bc", "5ebe8905e8d7790b3e91cbc1", "5ebe8a73e8d7790b3e920076"};
+
 
         for (int i = 0; i<id.length;i++) {
             LocalDateTime start = LocalDateTime.now();
@@ -196,7 +210,7 @@ public class MongodbAPITest {
         for (int i = 0; i<entity1.length;i++) {
             LocalDateTime start = LocalDateTime.now();
 
-            mongodb.entity2entity(entity1[i], entity2[i], relation);
+            System.out.print(mongodb.entity2entity(entity1[i], entity2[i], 5, relation));
 
             LocalDateTime end = LocalDateTime.now();
 
@@ -211,9 +225,10 @@ public class MongodbAPITest {
     @Test
     public void testThread() throws InterruptedException {
         Vector<Thread> threadVector = new Vector<>();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             threadTest temp = new threadTest();
             threadVector.add(temp);
+            temp.id = i;
             temp.start();
         }
 
